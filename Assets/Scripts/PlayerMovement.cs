@@ -9,8 +9,10 @@ using UnityEngine.Rendering;
 public class PlayerMovement : MonoBehaviour
 {
     // ----- Attributes ----- //
-    Vector2 moveInput;
     Rigidbody2D playerRigidbody2D;
+    Animator playerAnimator;
+
+    Vector2 moveInput;
 
     [SerializeField]
     private float runSpeed = 10f;
@@ -20,8 +22,9 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Fetching player's Rigidbody
+        // Fetching player's components
         playerRigidbody2D = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -43,6 +46,10 @@ public class PlayerMovement : MonoBehaviour
         // Defining player's velocity
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidbody2D.velocity.y);
         playerRigidbody2D.velocity = playerVelocity;
+
+        // Switching isRunning animation, depending on playerHasHorizontalSpeed
+        bool playerHasHorizontalSpeed = Mathf.Abs(playerRigidbody2D.velocity.x) > Mathf.Epsilon;
+        playerAnimator.SetBool("isRunning", playerHasHorizontalSpeed);
     }
 
     // Function to define when the sprite flips, depending on its direction
