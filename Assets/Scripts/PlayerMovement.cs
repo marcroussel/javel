@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D playerRigidbody2D;
 
+    [SerializeField]
+    private float runSpeed = 10f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     void Run()
     {
         // Defining player's velocity
-        Vector2 playerVelocity = new Vector2(0, 0);
+        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidbody2D.velocity.y);
         playerRigidbody2D.velocity = playerVelocity;
     }
 }
