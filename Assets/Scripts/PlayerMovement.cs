@@ -11,11 +11,15 @@ public class PlayerMovement : MonoBehaviour
     // ----- Attributes ----- //
     Rigidbody2D playerRigidbody2D;
     Animator playerAnimator;
+    BoxCollider2D playerFeetCollider;
 
     Vector2 moveInput;
 
     [SerializeField]
     private float runSpeed = 10f;
+
+    [SerializeField]
+    private float jumpSpeed = 2f;
     // ---------------------- //
 
 
@@ -25,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         // Fetching player's components
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        playerFeetCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -38,6 +43,29 @@ public class PlayerMovement : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+    }
+
+    // OnJump is called when the jump command is pressed
+    void OnJump(InputValue value)
+    {
+        if(isTouchingTheGround())
+        {
+            Debug.Log("Is touching the ground");
+        }
+        else
+        {
+            Debug.Log("Is not touching the ground");
+        }
+
+        if (isTouchingTheGround() && value.isPressed)
+        {
+            Debug.Log("Is Jumping");
+            playerRigidbody2D.velocity += new Vector2(0f, jumpSpeed);
+        }
+        else
+        {
+            Debug.Log("Is not Jumping");
+        }
     }
 
     // Function to define the run velocity when the player runs or stays stopped
@@ -62,5 +90,12 @@ public class PlayerMovement : MonoBehaviour
         { 
             transform.localScale = new Vector3(Mathf.Sign(playerRigidbody2D.velocity.x), 1f, 1f);
         }
+    }
+
+    // Function to determine if the player touches, with its feet,
+    // the layer "Platforms", so the ground
+    bool isTouchingTheGround()
+    {
+        return playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platforms"));
     }
 }
