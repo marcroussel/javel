@@ -9,9 +9,10 @@ using UnityEngine.Rendering;
 public class PlayerMovement : MonoBehaviour
 {
     // ----- Attributes ----- //
-    Rigidbody2D playerRigidbody2D;
     Animator playerAnimator;
     BoxCollider2D playerFeetCollider;
+    CapsuleCollider2D playerBodyCollider;
+    Rigidbody2D playerRigidbody2D;
 
     Vector2 moveInput;
 
@@ -19,7 +20,12 @@ public class PlayerMovement : MonoBehaviour
     private float runSpeed = 10f;
 
     [SerializeField]
-    private float jumpSpeed = 15f;
+    private float jumpSpeed = 25f;
+
+    [SerializeField]
+    private float climpSpeed = 8f;
+
+    private float gravityScaleAtStart;
     // ---------------------- //
 
 
@@ -27,9 +33,13 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Fetching player's components
-        playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        playerBodyCollider = GetComponent<CapsuleCollider2D>();
         playerFeetCollider = GetComponent<BoxCollider2D>();
+        playerRigidbody2D = GetComponent<Rigidbody2D>();
+
+        // Getting start gravity scale
+        gravityScaleAtStart = playerRigidbody2D.gravityScale;
     }
 
     // Update is called once per frame
@@ -37,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Run();
         FlipSprite();
+        ClimbLadder();
     }
 
     // OnMove is called when a movement command is pressed
@@ -48,23 +59,9 @@ public class PlayerMovement : MonoBehaviour
     // OnJump is called when the jump command is pressed
     void OnJump(InputValue value)
     {
-        if(isTouchingTheGround())
-        {
-            Debug.Log("Is touching the ground");
-        }
-        else
-        {
-            Debug.Log("Is not touching the ground");
-        }
-
         if (isTouchingTheGround() && value.isPressed)
         {
-            Debug.Log("Is Jumping");
             playerRigidbody2D.velocity += new Vector2(0f, jumpSpeed);
-        }
-        else
-        {
-            Debug.Log("Is not Jumping");
         }
     }
 
@@ -80,6 +77,31 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator.SetBool("isRunning", playerHasHorizontalSpeed);
     }
 
+    // Function to define the climbing velocity when the player climbs a ladder
+    void ClimbLadder()
+    {
+        if (isTouchingALadder())
+        {
+            // Defining player's velocity
+            Vector2 playerVelocity = new Vector2(playerRigidbody2D.velocity.x, moveInput.y * climpSpeed);
+            playerRigidbody2D.velocity = playerVelocity;
+
+            // Removing gravity when climbing
+            playerRigidbody2D.gravityScale = 0f;
+
+            // Switching isClimping animation, depending on isTouchingALadder
+            playerAnimator.SetBool("isClimbing", !isTouchingTheGround());
+        }
+        else
+        {
+            // Removing gravity when climbing
+            playerRigidbody2D.gravityScale = gravityScaleAtStart;
+
+            // Switching isClimping animation, depending on isTouchingALadder
+            playerAnimator.SetBool("isClimbing", false);
+        }
+    }
+
     // Function to define when the sprite flips, depending on its direction
     void FlipSprite()
     {
@@ -87,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         bool playerHasHorizontalSpeed = Mathf.Abs(playerRigidbody2D.velocity.x) > Mathf.Epsilon;
 
         if (playerHasHorizontalSpeed)
-        { 
+        {
             transform.localScale = new Vector3(Mathf.Sign(playerRigidbody2D.velocity.x), 1f, 1f);
         }
     }
@@ -97,5 +119,12 @@ public class PlayerMovement : MonoBehaviour
     bool isTouchingTheGround()
     {
         return playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platforms"));
+    }
+
+    // Function to determine if the player touches, with its body,
+    // the layer "Climbing", so a ladder
+    bool isTouchingALadder()
+    {
+        return playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
     }
 }
