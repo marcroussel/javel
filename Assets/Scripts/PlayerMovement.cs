@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float runSpeed = 10f;
 
     [SerializeField]
-    private float jumpSpeed = 2f;
+    private float jumpSpeed = 15f;
     // ---------------------- //
 
 
