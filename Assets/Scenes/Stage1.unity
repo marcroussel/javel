@@ -2830,6 +2830,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &772719193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772719187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2010168610f4bc79e5ad99b30130c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &1108524710
 GameObject:
   m_ObjectHideFlags: 0
@@ -5394,6 +5407,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7549628987435250253, guid: bf397bc583927b7488e0c27a9a0d61c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 772719190}
+    - targetCorrespondingSourceObject: {fileID: 7549628987435250253, guid: bf397bc583927b7488e0c27a9a0d61c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 772719193}
   m_SourcePrefab: {fileID: 100100000, guid: bf397bc583927b7488e0c27a9a0d61c3, type: 3}
 --- !u!1001 &7289480596976155395
 PrefabInstance:
