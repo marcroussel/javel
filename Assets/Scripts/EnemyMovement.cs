@@ -35,11 +35,9 @@ public class EnemyMovement : MonoBehaviour
         moveSpeed = -moveSpeed;
     }
 
-    // Function to defin when the sprite flips, depending on its direction
+    // Function to define when the enemy facing flips, depending on its direction
     void FlipEnemyFacing()
     {
-        Debug.Log(transform.localScale);
-        // Debug.Log(enemyRigidbody2D.velocity.x);
         transform.localScale = new Vector3(Mathf.Sign(enemyRigidbody2D.velocity.x), 1f, 1f);
     }
 }
