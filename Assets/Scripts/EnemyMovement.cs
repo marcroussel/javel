@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,5 +25,21 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         enemyRigidbody2D.velocity = new Vector2(moveSpeed, enemyRigidbody2D.velocity.y);
+        FlipEnemyFacing();
+    }
+
+    // OnTriggerExit2D is called when the enemy's Box Collider is out of collision
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        // Reversing Enemy's movement 
+        moveSpeed = -moveSpeed;
+    }
+
+    // Function to defin when the sprite flips, depending on its direction
+    void FlipEnemyFacing()
+    {
+        Debug.Log(transform.localScale);
+        // Debug.Log(enemyRigidbody2D.velocity.x);
+        transform.localScale = new Vector3(Mathf.Sign(enemyRigidbody2D.velocity.x), 1f, 1f);
     }
 }
