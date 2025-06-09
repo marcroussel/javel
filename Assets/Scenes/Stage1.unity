@@ -12972,9 +12972,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f06e8ba4cbf394697b80348f845fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateDrivenCamera: {fileID: 1641570972}
   runSpeed: 10
   jumpSpeed: 25
   climpSpeed: 8
+  deathKick: 8
 --- !u!61 &589738222
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13850,7 +13852,7 @@ Transform:
   m_GameObject: {fileID: 1108524710}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.756959, y: -0.2552255, z: -10.041961}
+  m_LocalPosition: {x: -0.47125483, y: -0.25537547, z: -10.041961}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

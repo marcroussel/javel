@@ -6,15 +6,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
+using Cinemachine;
+
 public class PlayerMovement : MonoBehaviour
 {
-    // ----- Attributes ----- //
-    Animator playerAnimator;
-    BoxCollider2D playerFeetCollider;
-    CapsuleCollider2D playerBodyCollider;
-    Rigidbody2D playerRigidbody2D;
-
-    Vector2 moveInput;
+    // ---------- Attributes ---------- //
+    // --- SerializeField Vars --- //
+    // Values are defined in the editor
+    [SerializeField]
+    private CinemachineStateDrivenCamera stateDrivenCamera; 
 
     [SerializeField]
     private float runSpeed = 10f;
@@ -25,9 +25,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float climpSpeed = 8f;
 
+    [SerializeField]
+    private float deathKick = 8f;
+    // --------------------------- //
+
+    Animator playerAnimator;
+    BoxCollider2D playerFeetCollider;
+    CapsuleCollider2D playerBodyCollider;
+    Rigidbody2D playerRigidbody2D;
+
+    Vector2 moveInput;
+    
     private bool isAlive = true;
     private float gravityScaleAtStart;
-    // ---------------------- //
+    // -------------------------------- //
 
 
     // Start is called before the first frame update
@@ -129,7 +140,19 @@ public class PlayerMovement : MonoBehaviour
         if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
         {
             isAlive = false;
+
+            // Enabling Dying animation
             playerAnimator.SetTrigger("Dying");
+
+            // Disabling Player's colliders
+            playerBodyCollider.enabled = false;
+            playerFeetCollider.enabled = false;
+
+            // Giving a vertical kick to the player
+            playerRigidbody2D.velocity = new Vector2(0f, deathKick);
+
+            // Blocking the state-driven camera
+            stateDrivenCamera.enabled = false;
         }
     }
 
