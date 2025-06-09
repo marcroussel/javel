@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float climpSpeed = 8f;
 
+    private bool isAlive = true;
     private float gravityScaleAtStart;
     // ---------------------- //
 
@@ -45,21 +46,28 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Run();
-        FlipSprite();
-        ClimbLadder();
+        if (isAlive)
+        {
+            Run();
+            FlipSprite();
+            ClimbLadder();
+            Die();
+        }
     }
 
     // OnMove is called when a movement command is pressed
     void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
+        if (isAlive)
+        {
+            moveInput = value.Get<Vector2>();
+        }
     }
 
     // OnJump is called when the jump command is pressed
     void OnJump(InputValue value)
     {
-        if (isTouchingTheGround() && value.isPressed)
+        if (isAlive && isTouchingTheGround() && value.isPressed)
         {
             playerRigidbody2D.velocity += new Vector2(0f, jumpSpeed);
         }
@@ -111,6 +119,17 @@ public class PlayerMovement : MonoBehaviour
         if (playerHasHorizontalSpeed)
         {
             transform.localScale = new Vector3(Mathf.Sign(playerRigidbody2D.velocity.x), 1f, 1f);
+        }
+    }
+
+    // Function to make the Player dying 
+    void Die()
+    {
+        // Verifying if the Player has touched an Enemy
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        {
+            isAlive = false;
+            playerAnimator.SetTrigger("Dying");
         }
     }
 
