@@ -137,19 +137,23 @@ public class PlayerMovement : MonoBehaviour
     void Die()
     {
         // Verifying if the Player has touched an Enemy
-        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")) || playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Water")))
         {
             isAlive = false;
 
             // Enabling Dying animation
             playerAnimator.SetTrigger("Dying");
 
+            // Giving a vertical kick to the player
+            // Only when an enemy has touched it
+            if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+            {
+                playerRigidbody2D.velocity = new Vector2(0f, deathKick);
+            }
+
             // Disabling Player's colliders
             playerBodyCollider.enabled = false;
             playerFeetCollider.enabled = false;
-
-            // Giving a vertical kick to the player
-            playerRigidbody2D.velocity = new Vector2(0f, deathKick);
 
             // Blocking the state-driven camera
             stateDrivenCamera.enabled = false;
