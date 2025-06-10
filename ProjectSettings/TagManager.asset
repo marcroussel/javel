@@ -18,7 +18,7 @@ TagManager:
   - Climbing
   - Enemy
   - Spikes
-  - 
+  - Interactables
   - 
   - 
   - 
@@ -61,4 +61,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1691276569
+    locked: 0
+  - name: Interactables
+    uniqueID: 3934053623
     locked: 0
