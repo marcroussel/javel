@@ -59,9 +59,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isAlive)
         {
+            ClimbLadder(); 
             Run();
             FlipSprite();
-            ClimbLadder();
             Die();
         }
     }
@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     void Die()
     {
         // Verifying if the Player has touched an Enemy
-        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")) || playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Water")))
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Water")) || playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Spikes")))
         {
             isAlive = false;
 
@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Giving a vertical kick to the player
             // Only when an enemy has touched it
-            if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+            if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")) || playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Spikes")))
             {
                 playerRigidbody2D.velocity = new Vector2(0f, deathKick);
             }
