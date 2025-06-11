@@ -14,6 +14,13 @@ public class PlayerMovement : MonoBehaviour
     // --- SerializeField Vars --- //
     // Values are defined in the editor
     [SerializeField]
+    private AudioClip loseLifeSFX;
+    [SerializeField]
+    private AudioClip fallSFX;
+    [SerializeField]
+    private AudioClip punchSFX;
+
+    [SerializeField]
     private CinemachineStateDrivenCamera stateDrivenCamera; 
 
     [SerializeField]
@@ -147,11 +154,19 @@ public class PlayerMovement : MonoBehaviour
             // Enabling Dying animation
             playerAnimator.SetTrigger("Dying");
 
-            // Giving a vertical kick to the player
-            // Only when an enemy has touched it
+            // When an enemy or spikes have touched the player
             if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")) || playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Spikes")))
             {
+                // Playing punch sound
+                AudioSource.PlayClipAtPoint(punchSFX, Camera.main.transform.position);
+
+                // Giving a vertical kick to the player
                 playerRigidbody2D.velocity = new Vector2(0f, deathKick);
+            }
+            else
+            {
+                // Considering that this part is only executed when the player falls in the water
+                AudioSource.PlayClipAtPoint(fallSFX, Camera.main.transform.position);
             }
 
             // Disabling Player's colliders
@@ -161,8 +176,11 @@ public class PlayerMovement : MonoBehaviour
             // Blocking the state-driven camera
             stateDrivenCamera.enabled = false;
 
-            // Processing to death in Game Session
-            Invoke("DieInGameSession", 3);
+            // Playing the lose life
+            Invoke("playLoseLifeSound", 0.5f);
+
+            // Processing to death in Game Session after 3 seconds
+            Invoke("DieInGameSession", 2.5f);
         }
     }
 
@@ -173,10 +191,10 @@ public class PlayerMovement : MonoBehaviour
         FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
-    // Function to play the death sound
-    void playDeathSound()
+    // Function to play the losing life sound
+    void playLoseLifeSound()
     {
-        
+        AudioSource.PlayClipAtPoint(loseLifeSFX, Camera.main.transform.position);
     }
 
     // Function to determine if the player touches, with its feet,
