@@ -157,7 +157,17 @@ public class PlayerMovement : MonoBehaviour
 
             // Blocking the state-driven camera
             stateDrivenCamera.enabled = false;
+
+            // Processing to death in Game Session
+            Invoke("DieInGameSession", 3);
         }
+    }
+
+    // Function to make the Game Session process to player's death
+    void DieInGameSession()
+    {
+        // Calling the player's death function in the current GameSession
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
     // Function to determine if the player touches, with its feet,
