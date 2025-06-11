@@ -8,7 +8,10 @@ public class LevelExit : MonoBehaviour
 {
     // ---------- Attributes ---------- //
     [SerializeField]
-    private int sceneLoadDelay = 3;
+    private AudioClip nextSceneSFX;
+
+    [SerializeField]
+    private int sceneLoadDelay = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,8 @@ public class LevelExit : MonoBehaviour
     // OnTriggerEnter2D is called when the Box Collider is triggered
     void OnTriggerEnter2D(Collider2D collision)
     {
+        // Playing next scene's sound
+        AudioSource.PlayClipAtPoint(nextSceneSFX, Camera.main.transform.position);
         Invoke("LoadNextScene", sceneLoadDelay);
     }
 
