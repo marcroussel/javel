@@ -5,6 +5,9 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     // ---------- Attributes ---------- //
+    [SerializeField]
+    AudioClip pickupSFX;
+
     Animator coinAnimator;
 
     // Start is called before the first frame update
@@ -25,8 +28,13 @@ public class Pickup : MonoBehaviour
     {   
         if(other.tag == "Player")
         {
+            // Playing the sound
+            AudioSource.PlayClipAtPoint(pickupSFX, Camera.main.transform.position);
+
             // Enabling Shine animation
             coinAnimator.SetTrigger("CoinCaught");
+
+            // Destructing the coin after 250 ms
             Invoke("SelfDestruct", 0.25f);
         }
     }
