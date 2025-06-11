@@ -24,9 +24,13 @@ public class Coin : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Enabling Shine animation
-        coinAnimator.SetTrigger("CoinShine");
-
+        coinAnimator.SetTrigger("CoinCaught");
+        Invoke("SelfDestruct", 0.25f);
     }
 
-    // To-do Self destruct function
+    // Function to self destruct
+    void SelfDestruct()
+    {
+        Destroy(gameObject);
+    }
 }
