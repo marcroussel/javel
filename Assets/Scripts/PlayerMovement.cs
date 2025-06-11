@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // Removing gravity when climbing
+            // Restablishing gravity when not climbing
             playerRigidbody2D.gravityScale = gravityScaleAtStart;
 
             // Switching isClimping animation, depending on isTouchingALadder
@@ -140,6 +140,9 @@ public class PlayerMovement : MonoBehaviour
         if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Water")) || playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Spikes")))
         {
             isAlive = false;
+
+            // Restablishing gravity 
+            playerRigidbody2D.gravityScale = gravityScaleAtStart;
 
             // Enabling Dying animation
             playerAnimator.SetTrigger("Dying");
