@@ -173,6 +173,12 @@ public class PlayerMovement : MonoBehaviour
         FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
+    // Function to play the death sound
+    void playDeathSound()
+    {
+        
+    }
+
     // Function to determine if the player touches, with its feet,
     // the layer "Platforms", so the ground
     bool isTouchingTheGround()
