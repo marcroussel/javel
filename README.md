@@ -1,5 +1,8 @@
-# Projet de jeu Unity 2D
+# JAVEL!
 Projet de jeu Unity, par Marc Roussel, TP6C, dans le cadre du module "*Développement avancé du S6*".  
+
+
+**JAVEL!** (*Jump Above Villains & Earn a Lot!*) est un jeu de plate-formes, similaire à Super Mario Bros., dans lequel on incarne un personnage, devant traverser les niveaux, afin de sortir d'une mine sombre et lugubre, mais remplie de ressources en or. Il devra échapper aux villains, en sautant par-dessus eux, et ressortir les poches pleines !
 
 # Credits
 
