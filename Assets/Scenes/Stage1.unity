@@ -14109,6 +14109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f06e8ba4cbf394697b80348f845fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSFX: {fileID: 8300000, guid: 70faed593f92943e0b3a88057bf3a6d3, type: 3}
   loseLifeSFX: {fileID: 8300000, guid: 0872a9b6cc630457caffbfc281740dd2, type: 3}
   fallSFX: {fileID: 8300000, guid: 6b6caea3da65a4b7382045b3ff88c9fb, type: 3}
   punchSFX: {fileID: 8300000, guid: f9777a15e61e24a338e773e86b83c7a0, type: 3}

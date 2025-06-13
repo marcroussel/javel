@@ -14,9 +14,14 @@ public class PlayerMovement : MonoBehaviour
     // --- SerializeField Vars --- //
     // Values are defined in the editor
     [SerializeField]
+    private AudioClip jumpSFX;
+
+    [SerializeField]
     private AudioClip loseLifeSFX;
+
     [SerializeField]
     private AudioClip fallSFX;
+
     [SerializeField]
     private AudioClip punchSFX;
 
@@ -87,6 +92,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isAlive && isTouchingTheGround() && value.isPressed)
         {
+            // Playing jump sound
+            AudioSource.PlayClipAtPoint(jumpSFX, Camera.main.transform.position);
             playerRigidbody2D.velocity += new Vector2(0f, jumpSpeed);
         }
     }
