@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -27,18 +28,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void Resume()
+    public void Resume()
     {
         // Deactivating Pause Menu
         pauseMenuUI.SetActive(false);
 
-        // Freezing time
+        // Unfreezing time
         Time.timeScale = 1f;
 
         GameIsPaused = false;
     }
 
-    void Pause()
+    public void Pause()
     {
         // Activating Pause Menu
         pauseMenuUI.SetActive(true);
@@ -47,5 +48,20 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
 
         GameIsPaused = true;
+    }
+
+    public void LoadMenu()
+    {
+        // Unfreezing time
+        Time.timeScale = 1f;
+
+        GameIsPaused = false;
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("QUIT!");
+        Application.Quit();
     }
 }
