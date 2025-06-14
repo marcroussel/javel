@@ -46,9 +46,20 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    // Function to self destruct
+    // Function to self destruct and to add a value to the Game Session
     void SelfDestruct()
     {
+        // If the object to be picked up is a coin
+        if (gameObject.tag == "Coin")
+        {
+            FindObjectOfType<GameSession>().AddToCoins();
+        }
+        // If the object to be picked up is a live
+        if (gameObject.tag == "Mushroom")
+        {
+            FindObjectOfType<GameSession>().AddToLife();
+        }
+        
         Destroy(gameObject);
     }
 }

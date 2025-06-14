@@ -45,6 +45,9 @@ public class GameSession : MonoBehaviour
     {
         // Displaying lives
         DisplayLives();
+
+        // Displaying coins
+        DisplayCoins();
     }
 
     // Update is called once per frame
@@ -96,8 +99,7 @@ public class GameSession : MonoBehaviour
     // Function to display the player's coins
     public void DisplayCoins()
     {
-
-        coinsText.text = "Coins: " + PlayerPrefs.GetInt("Coins").ToString();
+        coinsText.text = "Coins: " + playerCoins.ToString();
     }
 
     // Function to reset the Game sessions and reload the initial scene
