@@ -39,6 +39,9 @@ public class LevelExit : MonoBehaviour
         // Fetching current Scene's index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+        // Destroying the ScenePersist (the data on the scene)
+        FindAnyObjectByType<ScenePersist>().ResetScenePersist();
+
         // Loading next Scene
         SceneManager.LoadScene(currentSceneIndex + 1);
     }

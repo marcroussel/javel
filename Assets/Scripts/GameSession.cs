@@ -115,7 +115,7 @@ public class GameSession : MonoBehaviour
         Destroy(gameObject);
 
         // Loading initial scene
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("GameOver");
     }
 
     // Function to handle Player's death on Game Sessions
