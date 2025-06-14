@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using TMPro;
+
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -9,6 +11,15 @@ public class GameSession : MonoBehaviour
 {
 
     // ---------- Attributes ---------- //
+    [SerializeField]
+    TextMeshProUGUI livesText;
+
+    [SerializeField]
+    TextMeshProUGUI coinsText;
+
+    [SerializeField]
+    private int playerCoins = 0; // At the beginning, the player has 0 coins
+
     [SerializeField]
     private int playerLives = 3; // At the beginning, the player has 3 lives
     // -------------------------------- //
@@ -32,7 +43,8 @@ public class GameSession : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Displaying lives
+        DisplayLives();
     }
 
     // Update is called once per frame
@@ -41,17 +53,51 @@ public class GameSession : MonoBehaviour
         
     }
 
+    // Function to add a life to the player, and displaying it
+    public void AddToLife()
+    {
+        playerLives++;
+
+        // Displaying lives
+        DisplayLives();
+    }
+
+    // Function to add a coin to the player, and displaying it
+    public void AddToCoins()
+    {
+        playerCoins++;
+
+        // Displaying coins
+        DisplayCoins();
+    }
+
     // Function to remove a life and reload the scene when the player loses
     public void TakeLife()
     {
         // Removing a player's life
         playerLives--;
 
+        // Displaying lives
+        DisplayLives();
+
         // Fetching current Scene's index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         // Loading current Scene
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    // Function to display the player's lives
+    public void DisplayLives()
+    {
+        livesText.text = "Lives: " + playerLives.ToString();
+    }
+
+    // Function to display the player's coins
+    public void DisplayCoins()
+    {
+
+        coinsText.text = "Coins: " + PlayerPrefs.GetInt("Coins").ToString();
     }
 
     // Function to reset the Game sessions and reload the initial scene
