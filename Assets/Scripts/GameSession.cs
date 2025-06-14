@@ -106,7 +106,7 @@ public class GameSession : MonoBehaviour
     }
 
     // Function to reset the Game sessions and reload the initial scene
-    public void ResetGameSessions()
+    public void ResetGameSessions(string sceneToLoad)
     {
         // Destroying the ScenePersist (the data on the scene)
         FindAnyObjectByType<ScenePersist>().ResetScenePersist();
@@ -115,7 +115,7 @@ public class GameSession : MonoBehaviour
         Destroy(gameObject);
 
         // Loading initial scene
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene(sceneToLoad);
     }
 
     // Function to handle Player's death on Game Sessions
@@ -127,7 +127,7 @@ public class GameSession : MonoBehaviour
         }
         else
         {
-            ResetGameSessions();
+            ResetGameSessions("GameOver");
         }
     }
 
