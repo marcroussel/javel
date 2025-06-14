@@ -28,7 +28,7 @@ public class GameSession : MonoBehaviour
     // Function called before Start, to handle Game Sessions creations
     void Awake()
     {
-        int numberOfGameSessions = FindObjectsOfType<GameSession>().Length; // Unity 6 syntax: FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length
+        int numberOfGameSessions = FindObjectsOfType<GameSession>().Length;
         if (numberOfGameSessions > 1)
         {
             Destroy(gameObject);
@@ -105,6 +105,9 @@ public class GameSession : MonoBehaviour
     // Function to reset the Game sessions and reload the initial scene
     public void ResetGameSessions()
     {
+        // Destroying the ScenePersist (the data on the scene)
+        FindAnyObjectByType<ScenePersist>().ResetScenePersist();
+
         // Destroying the current game object
         Destroy(gameObject);
 
