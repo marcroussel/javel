@@ -86,6 +86,9 @@ public class GameSession : MonoBehaviour
         // Fetching current Scene's index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+        // Destroying Background Music
+        Destroy(FindAnyObjectByType<BackgroundMusic>());
+
         // Loading current Scene
         SceneManager.LoadScene(currentSceneIndex);
     }

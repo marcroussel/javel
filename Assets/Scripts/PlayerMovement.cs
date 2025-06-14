@@ -158,6 +158,9 @@ public class PlayerMovement : MonoBehaviour
             // Restablishing gravity 
             playerRigidbody2D.gravityScale = gravityScaleAtStart;
 
+            // Pending the Background Music to be stopped
+            FindObjectOfType<BackgroundMusic>().StopMusic();
+
             // Enabling Dying animation
             playerAnimator.SetTrigger("Dying");
 
